@@ -47,6 +47,8 @@ public class User implements Serializable {
      */
     private LocalDateTime updateTime;
 
+    private String createBy;
+
     public Integer getId() {
         return id;
     }
@@ -89,6 +91,13 @@ public class User implements Serializable {
     public void setUpdateTime(LocalDateTime updateTime) {
         this.updateTime = updateTime;
     }
+    public String getCreateBy() {
+        return createBy;
+    }
+
+    public void setCreateBy(String createBy) {
+        this.createBy = createBy;
+    }
 
     @Override
     public String toString() {
@@ -99,6 +108,7 @@ public class User implements Serializable {
             ", status=" + status +
             ", createTime=" + createTime +
             ", updateTime=" + updateTime +
+            ", createBy=" + createBy +
         "}";
     }
 }

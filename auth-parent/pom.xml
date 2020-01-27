@@ -30,6 +30,12 @@
         <dependencies>
             <dependency>
                 <groupId>io.cubita.base</groupId>
+                <artifactId>auth-commons</artifactId>
+                <version>${base.auth.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.cubita.base</groupId>
                 <artifactId>auth-dao</artifactId>
                 <version>${base.auth.version}</version>
             </dependency>
