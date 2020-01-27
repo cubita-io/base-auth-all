@@ -13,6 +13,7 @@ import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.pagination.optimize.JsqlParserCountOptimize;
 import com.baomidou.mybatisplus.extension.plugins.tenant.TenantHandler;
 import com.baomidou.mybatisplus.extension.plugins.tenant.TenantSqlParser;
+import io.cubita.commons.RequestContext;
 import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.expression.StringValue;
 import org.apache.ibatis.mapping.MappedStatement;
@@ -54,7 +55,8 @@ public class MybatisPlusConfig {
             public Expression getTenantId(boolean where) {
                 // 该 where 条件 3.2.0 版本开始添加的，用于区分是否为在 where 条件中使用
                 // 如果是in/between之类的多个tenantId的情况，参考下方示例
-                return new StringValue("aa");
+                String tenantName = RequestContext.getCurrentContext().getTenant();
+                return new StringValue(tenantName);
             }
 
             @Override

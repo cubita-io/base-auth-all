@@ -33,6 +33,16 @@ public class User implements Serializable {
     private String pwd;
 
     /**
+     * 角色ID
+     */
+    private Integer roleId;
+
+    /**
+     * 租户
+     */
+    private String tenantName;
+
+    /**
      * 状态 0 禁用  1 正常 
      */
     private Integer status;
@@ -46,8 +56,6 @@ public class User implements Serializable {
      * 更新时间
      */
     private LocalDateTime updateTime;
-
-    private String createBy;
 
     public Integer getId() {
         return id;
@@ -70,6 +78,20 @@ public class User implements Serializable {
     public void setPwd(String pwd) {
         this.pwd = pwd;
     }
+    public Integer getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(Integer roleId) {
+        this.roleId = roleId;
+    }
+    public String getTenantName() {
+        return tenantName;
+    }
+
+    public void setTenantName(String tenantName) {
+        this.tenantName = tenantName;
+    }
     public Integer getStatus() {
         return status;
     }
@@ -91,13 +113,6 @@ public class User implements Serializable {
     public void setUpdateTime(LocalDateTime updateTime) {
         this.updateTime = updateTime;
     }
-    public String getCreateBy() {
-        return createBy;
-    }
-
-    public void setCreateBy(String createBy) {
-        this.createBy = createBy;
-    }
 
     @Override
     public String toString() {
@@ -105,10 +120,11 @@ public class User implements Serializable {
             "id=" + id +
             ", name=" + name +
             ", pwd=" + pwd +
+            ", roleId=" + roleId +
+            ", tenantName=" + tenantName +
             ", status=" + status +
             ", createTime=" + createTime +
             ", updateTime=" + updateTime +
-            ", createBy=" + createBy +
         "}";
     }
 }

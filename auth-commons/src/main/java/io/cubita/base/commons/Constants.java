@@ -12,11 +12,11 @@ public interface Constants {
     /**
      * 过滤表无租户信息约束.
      */
-    String[] TABLE_WITHOUT_TENANT = "t_user,t_aaa".split(",");
+    String[] TABLE_WITHOUT_TENANT = "t_role,t_authorized_uri,t_tenant".split(",");
     /**
      * 过滤自定义查询此时无租户信息约束.
      */
     String[] MAPPER_METHOD_WITHOUT_TENANT =
             "".split(",");
-    String TENANT_COLUMN_NAME = "tenant";
+    String TENANT_COLUMN_NAME = "tenant_name";
 }

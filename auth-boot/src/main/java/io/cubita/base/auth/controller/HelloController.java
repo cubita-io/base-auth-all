@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.cubita.base.auth.dao.service.IUserService;
+import io.cubita.commons.RequestContext;
 
 /**
  * <p>
@@ -21,7 +22,13 @@ public class HelloController {
 
     @GetMapping("/hello")
     public String hello() {
-        return userService.getById(1).getName();
+        try {
+            RequestContext.getCurrentContext().setTenant("test");
+            return userService.getById(1).getName();
+        } finally {
+            RequestContext.getCurrentContext().unset();
+        }
+
     }
 
 }
