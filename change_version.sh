@@ -1,6 +1,4 @@
 #!/bin/bash
-## 替换 auth-parent 为对应的项目的名称
-## 替换 base.auth.version 为对应的项目的名称
 shopt -s expand_aliases
 if [ ! -n "$1" ] ;then
 	echo "Please input a version as first argument, e.g., 3.2.2"
