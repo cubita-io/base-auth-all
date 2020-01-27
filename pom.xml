@@ -6,11 +6,12 @@
 
     <groupId>io.cubita.base</groupId>
     <artifactId>base-auth-all</artifactId>
-    <packaging>pom</packaging>
     <version>1.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
     <modules>
         <module>auth-dao</module>
         <module>auth-parent</module>
+        <module>auth-boot</module>
     </modules>
 
 

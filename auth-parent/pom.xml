@@ -13,15 +13,28 @@
 
     <groupId>io.cubita.base</groupId>
     <artifactId>auth-parent</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
 
     <properties>
         <main.user.dir>${basedir}/..</main.user.dir>
         <project.encoding>UTF-8</project.encoding>
         <java.version>1.8</java.version>
 
+        <base.auth.version>1.0.0-SNAPSHOT</base.auth.version>
+
         <license.maven.plugin>3.0</license.maven.plugin>
         <maven.java.formatter.plugin>0.4</maven.java.formatter.plugin>
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>io.cubita.base</groupId>
+                <artifactId>auth-dao</artifactId>
+                <version>${base.auth.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <build>
         <plugins>
