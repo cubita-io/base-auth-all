@@ -10,16 +10,34 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>io.cubita.base</groupId>
     <artifactId>auth-boot</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
 
     <dependencies>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <!-- database start -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+        </dependency>
         <dependency>
             <groupId>io.cubita.base</groupId>
             <artifactId>auth-dao</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+        <!-- database end -->
+
     </dependencies>
 
 

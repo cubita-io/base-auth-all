@@ -1,6 +1,6 @@
-package io.cutita.base.auth.dao.mapper;
+package io.cubita.base.auth.dao.mapper;
 
-import io.cutita.base.auth.dao.entity.AuthorizedUri;
+import io.cubita.base.auth.dao.entity.AuthorizedUri;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**

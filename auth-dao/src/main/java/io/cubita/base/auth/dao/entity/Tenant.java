@@ -1,4 +1,4 @@
-package io.cutita.base.auth.dao.entity;
+package io.cubita.base.auth.dao.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
@@ -14,8 +14,8 @@ import java.io.Serializable;
  * @author cubita
  * @since 2020-01-27
  */
-@TableName("t_user")
-public class User implements Serializable {
+@TableName("t_tenant")
+public class Tenant implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -23,17 +23,12 @@ public class User implements Serializable {
     private Integer id;
 
     /**
-     * 用户名
+     * 租户名称
      */
     private String name;
 
     /**
-     * 密码
-     */
-    private String pwd;
-
-    /**
-     * 状态 0 禁用  1 正常 
+     * 状态
      */
     private Integer status;
 
@@ -61,13 +56,6 @@ public class User implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
-    public String getPwd() {
-        return pwd;
-    }
-
-    public void setPwd(String pwd) {
-        this.pwd = pwd;
-    }
     public Integer getStatus() {
         return status;
     }
@@ -92,10 +80,9 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "User{" +
+        return "Tenant{" +
             "id=" + id +
             ", name=" + name +
-            ", pwd=" + pwd +
             ", status=" + status +
             ", createTime=" + createTime +
             ", updateTime=" + updateTime +

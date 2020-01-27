@@ -1,6 +1,6 @@
-package io.cutita.base.auth.dao.service;
+package io.cubita.base.auth.dao.service;
 
-import io.cutita.base.auth.dao.entity.AuthorizedUri;
+import io.cubita.base.auth.dao.entity.AuthorizedUri;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**

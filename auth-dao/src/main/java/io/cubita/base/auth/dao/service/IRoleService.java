@@ -1,6 +1,6 @@
-package io.cutita.base.auth.dao.service;
+package io.cubita.base.auth.dao.service;
 
-import io.cutita.base.auth.dao.entity.Tenant;
+import io.cubita.base.auth.dao.entity.Role;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author cubita
  * @since 2020-01-27
  */
-public interface ITenantService extends IService<Tenant> {
+public interface IRoleService extends IService<Role> {
 
 }

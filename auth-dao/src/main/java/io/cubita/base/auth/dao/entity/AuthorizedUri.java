@@ -1,4 +1,4 @@
-package io.cutita.base.auth.dao.entity;
+package io.cubita.base.auth.dao.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;

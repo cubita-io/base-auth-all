@@ -1,8 +1,8 @@
-package io.cutita.base.auth.dao.service.impl;
+package io.cubita.base.auth.dao.service.impl;
 
-import io.cutita.base.auth.dao.entity.AuthorizedUri;
-import io.cutita.base.auth.dao.mapper.AuthorizedUriMapper;
-import io.cutita.base.auth.dao.service.IAuthorizedUriService;
+import io.cubita.base.auth.dao.entity.AuthorizedUri;
+import io.cubita.base.auth.dao.mapper.AuthorizedUriMapper;
+import io.cubita.base.auth.dao.service.IAuthorizedUriService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 

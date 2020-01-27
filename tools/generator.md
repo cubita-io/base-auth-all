@@ -3,7 +3,7 @@
 用法:
 -DprojectPath=? -Ddatabase=? -DpkgName=? -DtablePrefix=* -Dhost=127.0.0.1 -Dport=3306 -DuserName=root -DuserPwd=123456
 实例:
-java -DprojectPath=$(pwd)/xxx -Ddatabase=auth8 -DpkgName=io.cutita.dao -DtablePrefix=t_ -jar tools/generator-all-1.0.0.jar
+java -DprojectPath=$(pwd)/auth-dao -Ddatabase=auth8 -DpkgName=io.cubita.base.auth -DtablePrefix=t_ -jar tools/generator-all-1.0.0.jar
 ```
 # 修改pom.xml
 ```

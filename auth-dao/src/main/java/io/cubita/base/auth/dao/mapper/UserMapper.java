@@ -1,6 +1,6 @@
-package io.cutita.base.auth.dao.mapper;
+package io.cubita.base.auth.dao.mapper;
 
-import io.cutita.base.auth.dao.entity.Tenant;
+import io.cubita.base.auth.dao.entity.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author cubita
  * @since 2020-01-27
  */
-public interface TenantMapper extends BaseMapper<Tenant> {
+public interface UserMapper extends BaseMapper<User> {
 
 }
