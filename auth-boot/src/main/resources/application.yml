@@ -14,11 +14,20 @@ logging:
     io.cubita.base.auth.mydao: trace
   pattern:
     console: '%p %m %n'
-#zuulex:
-#  servlet-path: /*
-#zuulex:
-#  use-filter: false
-#  servlet-path: /ccc
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+zuulex:
+  use-filter: false
+  routes:
+    hello:
+      path: /aa/*/hello
+      url: http://127.0.0.1:8087/
 
 
 

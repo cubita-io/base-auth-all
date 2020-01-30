@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.util.StringUtils;
@@ -31,6 +30,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.optimize.JsqlParser
 import com.baomidou.mybatisplus.extension.plugins.tenant.TenantHandler;
 import com.baomidou.mybatisplus.extension.plugins.tenant.TenantSqlParser;
 import io.cubita.commons.RequestContext;
+import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
 import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.expression.StringValue;
 import org.apache.ibatis.mapping.MappedStatement;
@@ -51,6 +51,11 @@ import static io.cubita.base.commons.Constants.TENANT_COLUMN_NAME;
 @MapperScan({"io.cubita.base.auth.dao.mapper",
         "io.cubita.base.auth.mydao.mapper"})
 public class MybatisPlusConfig {
+
+    @Bean
+    public SimpleMeterRegistry meterRegistry() {
+        return new SimpleMeterRegistry();
+    }
 
     @Bean
     public PaginationInterceptor paginationInterceptor() {

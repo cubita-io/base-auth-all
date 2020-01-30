@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.cubita.autoconfigure.zuulex.exception.ZuulexException;
 import io.cubita.base.auth.dao.service.IUserService;
 import io.cubita.commons.RequestContext;
 
@@ -38,9 +37,10 @@ public class HelloController {
     private IUserService userService;
 
     @GetMapping("/{tenant}/hello")
-    public String hello(@PathVariable String tenant) throws ZuulexException {
+    public String hello(@PathVariable String tenant) {
         try {
             RequestContext.getCurrentContext().setTenant(tenant);
+//            int o = 1/0;
             return userService.getById(1).getName();
         } finally {
             RequestContext.getCurrentContext().unset();
@@ -53,6 +53,5 @@ public class HelloController {
         System.out.println("2222222");
         return userService.getById(1).getName();
     }
-
 
 }
