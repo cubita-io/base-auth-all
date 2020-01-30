@@ -1,11 +1,28 @@
+/*
+ * Copyright 2017-2019 Lemonframework Group Holding Ltd.
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *       http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
 package io.cubita.base.auth.configuration;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.util.StringUtils;
 
 import com.baomidou.mybatisplus.core.parser.ISqlParser;
 import com.baomidou.mybatisplus.core.parser.SqlParserHelper;
@@ -31,7 +48,8 @@ import static io.cubita.base.commons.Constants.TENANT_COLUMN_NAME;
  * @since 1.0.0
  */
 @Configuration
-@MapperScan("io.cubita.base.auth.dao.mapper")
+@MapperScan({"io.cubita.base.auth.dao.mapper",
+        "io.cubita.base.auth.mydao.mapper"})
 public class MybatisPlusConfig {
 
     @Bean
@@ -56,6 +74,9 @@ public class MybatisPlusConfig {
                 // 该 where 条件 3.2.0 版本开始添加的，用于区分是否为在 where 条件中使用
                 // 如果是in/between之类的多个tenantId的情况，参考下方示例
                 String tenantName = RequestContext.getCurrentContext().getTenant();
+                if (!StringUtils.hasText(tenantName)) {
+                    return new StringValue("");
+                }
                 return new StringValue(tenantName);
             }
 
