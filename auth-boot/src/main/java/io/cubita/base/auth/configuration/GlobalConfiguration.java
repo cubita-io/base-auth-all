@@ -29,7 +29,9 @@ import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.pagination.optimize.JsqlParserCountOptimize;
 import com.baomidou.mybatisplus.extension.plugins.tenant.TenantHandler;
 import com.baomidou.mybatisplus.extension.plugins.tenant.TenantSqlParser;
-import io.cubita.commons.RequestContext;
+import io.cubita.autoconfigure.zuulex.context.RequestContext;
+import io.cubita.autoconfigure.zuulex.filters.ZuulexProperties;
+import io.cubita.autoconfigure.zuulex.filters.pre.TenantFilter;
 import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
 import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.expression.StringValue;
@@ -50,7 +52,12 @@ import static io.cubita.base.commons.Constants.TENANT_COLUMN_NAME;
 @Configuration
 @MapperScan({"io.cubita.base.auth.dao.mapper",
         "io.cubita.base.auth.mydao.mapper"})
-public class MybatisPlusConfig {
+public class GlobalConfiguration {
+
+    @Bean
+    public TenantFilter tenantFilter(ZuulexProperties zuulexProperties) {
+        return new TenantFilter(zuulexProperties);
+    }
 
     @Bean
     public SimpleMeterRegistry meterRegistry() {
@@ -58,7 +65,7 @@ public class MybatisPlusConfig {
     }
 
     @Bean
-    public PaginationInterceptor paginationInterceptor() {
+    public PaginationInterceptor paginationInterceptor(ZuulexProperties zuulexProperties) {
         PaginationInterceptor paginationInterceptor = new PaginationInterceptor();
         // 设置请求的页面大于最大页后操作， true调回到首页，false 继续请求  默认false
         // paginationInterceptor.setOverflow(false);
@@ -92,6 +99,10 @@ public class MybatisPlusConfig {
 
             @Override
             public boolean doTableFilter(String tableName) {
+                String tenantName = RequestContext.getCurrentContext().getTenant();
+                if (zuulexProperties.getTenants().getAdmin().equals(tenantName)) {
+                    return true;
+                }
                 // 这里可以判断是否过滤表
                 if (Arrays.asList(TABLE_WITHOUT_TENANT).contains(tableName)) {
                     return true;

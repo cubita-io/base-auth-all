@@ -21,14 +21,13 @@ management:
   endpoints:
     web:
       exposure:
-        include: '*'
+        include:
+          - 'routes'
+          - 'filters'
 zuulex:
-  use-filter: false
+#  use-filter: false
   routes:
     hello:
-      path: /aa/*/hello
-      url: http://127.0.0.1:8087/
-
-
-
-
+      path: /*/test/hello
+#      url: http://127.0.0.1:8087/
+      url: 'forward:'

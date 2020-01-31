@@ -20,8 +20,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.cubita.autoconfigure.zuulex.context.RequestContext;
 import io.cubita.base.auth.dao.service.IUserService;
-import io.cubita.commons.RequestContext;
 
 /**
  * <p>
@@ -39,7 +39,6 @@ public class HelloController {
     @GetMapping("/{tenant}/hello")
     public String hello(@PathVariable String tenant) {
         try {
-            RequestContext.getCurrentContext().setTenant(tenant);
 //            int o = 1/0;
             return userService.getById(1).getName();
         } finally {
