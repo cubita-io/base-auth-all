@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package io.cubita.base.commons;
+package io.cubita.base.auth.commons;
 
 /**
  * <p>
@@ -32,5 +32,5 @@ public interface Constants {
      * 过滤自定义查询此时无租户信息约束.
      */
     String[] MAPPER_METHOD_WITHOUT_TENANT = "".split(",");
-    String   TENANT_COLUMN_NAME           = "tenant_name";
+    String   TENANT_COLUMN_NAME           = "tnt_name";
 }

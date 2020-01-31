@@ -13,7 +13,7 @@
         <module>auth-parent</module>
         <module>auth-boot</module>
         <module>auth-commons</module>
-        <module>auth-mydao</module>
+        <module>auth-service</module>
     </modules>
 
 

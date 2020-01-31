@@ -55,7 +55,7 @@
 
         <dependency>
             <groupId>io.cubita</groupId>
-            <artifactId>zuulex-cubita-starter</artifactId>
+            <artifactId>zuulex-spring-boot-starter</artifactId>
         </dependency>
 
         <!--<dependency>-->

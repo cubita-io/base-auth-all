@@ -38,9 +38,9 @@ import net.sf.jsqlparser.expression.StringValue;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.mybatis.spring.annotation.MapperScan;
 
-import static io.cubita.base.commons.Constants.MAPPER_METHOD_WITHOUT_TENANT;
-import static io.cubita.base.commons.Constants.TABLE_WITHOUT_TENANT;
-import static io.cubita.base.commons.Constants.TENANT_COLUMN_NAME;
+import static io.cubita.base.auth.commons.Constants.MAPPER_METHOD_WITHOUT_TENANT;
+import static io.cubita.base.auth.commons.Constants.TABLE_WITHOUT_TENANT;
+import static io.cubita.base.auth.commons.Constants.TENANT_COLUMN_NAME;
 
 /**
  * <p>
