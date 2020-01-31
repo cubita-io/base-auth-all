@@ -50,8 +50,7 @@ import static io.cubita.base.commons.Constants.TENANT_COLUMN_NAME;
  * @since 1.0.0
  */
 @Configuration
-@MapperScan({"io.cubita.base.auth.dao.mapper",
-        "io.cubita.base.auth.mydao.mapper"})
+@MapperScan({ "io.cubita.base.auth.dao.mapper", "io.cubita.base.auth.mydao.mapper" })
 public class GlobalConfiguration {
 
     @Bean

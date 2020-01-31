@@ -39,7 +39,7 @@ public class HelloController {
     @GetMapping("/{tenant}/hello")
     public String hello(@PathVariable String tenant) {
         try {
-//            int o = 1/0;
+            //            int o = 1/0;
             return userService.getById(1).getName();
         } finally {
             RequestContext.getCurrentContext().unset();

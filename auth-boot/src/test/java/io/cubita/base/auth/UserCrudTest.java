@@ -28,9 +28,9 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import io.cubita.autoconfigure.zuulex.context.RequestContext;
 import io.cubita.base.auth.dao.entity.User;
 import io.cubita.base.auth.dao.service.IUserService;
-import io.cubita.commons.RequestContext;
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
@@ -62,8 +62,7 @@ public class UserCrudTest {
         user.setPwd("1234567898");
         user.setStatus(1);
         user.setRoleId(1);
-        Assertions.assertThat(userService.save(user))
-                .isEqualTo(true);
+        Assertions.assertThat(userService.save(user)).isEqualTo(true);
     }
 
     @Test
@@ -84,8 +83,7 @@ public class UserCrudTest {
     @Test
     public void queryByWrapper() {
         QueryWrapper<User> wrapper = new QueryWrapper<>();
-        wrapper.likeRight("name", "zhang")
-                .gt("id", 2);
+        wrapper.likeRight("name", "zhang").gt("id", 2);
         final List<User> users = userService.list(wrapper);
         System.out.println(users);
     }
@@ -93,9 +91,7 @@ public class UserCrudTest {
     @Test
     public void queryOrderByWrapper() {
         QueryWrapper<User> wrapper = new QueryWrapper<>();
-        wrapper.likeRight("name", "zhang")
-                .gt("id", 2)
-                .orderByAsc("id");
+        wrapper.likeRight("name", "zhang").gt("id", 2).orderByAsc("id");
         final List<User> users = userService.list(wrapper);
         System.out.println(users);
     }
@@ -103,8 +99,8 @@ public class UserCrudTest {
     @Test
     public void queryInByWrapper() {
         QueryWrapper<User> wrapper = new QueryWrapper<>();
-        wrapper.apply("date_format(create_time, '%Y-%m-%d') = {0}", "2020-01-26")
-                .inSql("name", "select name from t_user where id=1");
+        wrapper.apply("date_format(create_time, '%Y-%m-%d') = {0}", "2020-01-26").inSql("name",
+            "select name from t_user where id=1");
         final List<User> users = userService.list(wrapper);
         System.out.println(users);
     }
@@ -186,15 +182,15 @@ public class UserCrudTest {
 
     }
 
-//    @Test
-//    public void queryByLambda2() {
-//        final LambdaQueryWrapper<User> wrapper1 = Wrappers.<User>lambdaQuery();
-//        wrapper1.select(User.class, info -> !info.getColumn().equals("pwd"))
-//                .likeRight(User::getName, "zhang");
-//        final List<User> users = userService.selectAll(wrapper1);
-//        System.out.println(users);
-//
-//    }
+    //    @Test
+    //    public void queryByLambda2() {
+    //        final LambdaQueryWrapper<User> wrapper1 = Wrappers.<User>lambdaQuery();
+    //        wrapper1.select(User.class, info -> !info.getColumn().equals("pwd"))
+    //                .likeRight(User::getName, "zhang");
+    //        final List<User> users = userService.selectAll(wrapper1);
+    //        System.out.println(users);
+    //
+    //    }
 
     @Test
     public void queryByLambda3() {
