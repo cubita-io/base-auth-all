@@ -28,6 +28,11 @@ zuulex:
 #  use-filter: false
   routes:
     hello:
-      path: /*/test/hello
+      path: /**
 #      url: http://127.0.0.1:8087/
       url: 'forward:'
+  tenant:
+    admin: admin
+    security-patterns:
+      - /test/*
+#    uri: 2

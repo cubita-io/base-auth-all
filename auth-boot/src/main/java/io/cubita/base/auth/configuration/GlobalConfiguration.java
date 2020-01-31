@@ -79,8 +79,28 @@ public class GlobalConfiguration {
          * 这里固定写成住户 1 实际情况你可以从cookie读取，因此数据看不到 【 麻花藤 】 这条记录（ 注意观察 SQL ）<br>
          */
         List<ISqlParser> sqlParserList = new ArrayList<>();
+        sqlParserList.add(buildTenantSqlParser(zuulexProperties));
+        paginationInterceptor.setSqlParserList(sqlParserList);
+        paginationInterceptor.setSqlParserFilter(metaObject -> {
+            MappedStatement ms = SqlParserHelper.getMappedStatement(metaObject);
+            // 过滤自定义查询此时无租户信息约束
+            if (Arrays.asList(MAPPER_METHOD_WITHOUT_TENANT).contains(ms.getId())) {
+                return true;
+            }
+            return false;
+        });
+
+        return paginationInterceptor;
+    }
+
+    private TenantSqlParser buildTenantSqlParser(ZuulexProperties zuulexProperties) {
         TenantSqlParser tenantSqlParser = new TenantSqlParser();
-        tenantSqlParser.setTenantHandler(new TenantHandler() {
+        tenantSqlParser.setTenantHandler(buildTenantHandler(zuulexProperties));
+        return tenantSqlParser;
+    }
+
+    private TenantHandler buildTenantHandler(ZuulexProperties zuulexProperties) {
+        return new TenantHandler() {
             @Override
             public Expression getTenantId(boolean where) {
                 // 该 where 条件 3.2.0 版本开始添加的，用于区分是否为在 where 条件中使用
@@ -100,7 +120,14 @@ public class GlobalConfiguration {
             @Override
             public boolean doTableFilter(String tableName) {
                 String tenantName = RequestContext.getCurrentContext().getTenant();
-                if (zuulexProperties.getTenants().getAdmin().equals(tenantName)) {
+                String admin = zuulexProperties.getTenant().getAdmin();
+                if (admin.equals(tenantName)) {
+                    return true;
+                }
+                if (!admin.endsWith("/")) {
+                    admin += "/";
+                }
+                if (tenantName != null && tenantName.startsWith(admin)) {
                     return true;
                 }
                 // 这里可以判断是否过滤表
@@ -109,19 +136,7 @@ public class GlobalConfiguration {
                 }
                 return false;
             }
-        });
-        sqlParserList.add(tenantSqlParser);
-        paginationInterceptor.setSqlParserList(sqlParserList);
-        paginationInterceptor.setSqlParserFilter(metaObject -> {
-            MappedStatement ms = SqlParserHelper.getMappedStatement(metaObject);
-            // 过滤自定义查询此时无租户信息约束
-            if (Arrays.asList(MAPPER_METHOD_WITHOUT_TENANT).contains(ms.getId())) {
-                return true;
-            }
-            return false;
-        });
-
-        return paginationInterceptor;
+        };
     }
 
 }
