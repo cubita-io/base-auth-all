@@ -19,16 +19,6 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>io.cubita</groupId>
-            <artifactId>cubita-commons</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>io.cubita.base</groupId>
-            <artifactId>auth-commons</artifactId>
-        </dependency>
-
         <!-- database start -->
         <dependency>
             <groupId>com.baomidou</groupId>
@@ -43,11 +33,6 @@
             <artifactId>auth-dao</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.cubita.base</groupId>
-            <artifactId>auth-mydao</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
@@ -55,7 +40,21 @@
 
         <dependency>
             <groupId>io.cubita</groupId>
+            <artifactId>cubita-commons</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.cubita</groupId>
             <artifactId>zuulex-spring-boot-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.cubita.base</groupId>
+            <artifactId>auth-commons</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.cubita.base</groupId>
+            <artifactId>auth-service</artifactId>
         </dependency>
 
         <!--<dependency>-->

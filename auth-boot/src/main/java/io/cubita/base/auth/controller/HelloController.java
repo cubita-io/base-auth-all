@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.cubita.autoconfigure.zuulex.context.RequestContext;
 import io.cubita.base.auth.dao.service.IUserService;
+import io.cubita.base.auth.tests.UnitTest;
 
 /**
  * <p>
@@ -35,6 +36,9 @@ public class HelloController {
 
     @Autowired
     private IUserService userService;
+
+    @Autowired
+    private UnitTest     unitTest;
 
     @GetMapping("/{tenant}/hello")
     public String hello(@PathVariable String tenant) {
@@ -51,6 +55,11 @@ public class HelloController {
     public String hello2() {
         System.out.println("2222222");
         return userService.getById(1).getName();
+    }
+
+    @GetMapping("/tests")
+    public void tests() {
+        unitTest.test();
     }
 
 }

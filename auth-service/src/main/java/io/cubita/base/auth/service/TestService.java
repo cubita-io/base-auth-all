@@ -15,6 +15,10 @@
  */
 package io.cubita.base.auth.service;
 
+import java.time.LocalDate;
+
+import io.cubita.commons.exceptions.NotImplementMethodException;
+
 /**
  * <p>
  *     测试
@@ -26,7 +30,8 @@ package io.cubita.base.auth.service;
 public interface TestService {
 
     default String hello() {
-        return "hello";
+        throw new NotImplementMethodException("未实现",
+                LocalDate.now(), LocalDate.now().plusDays(1), "V1.0.0");
     }
 
 }

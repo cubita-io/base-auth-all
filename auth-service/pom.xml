@@ -12,4 +12,11 @@
 
     <artifactId>auth-service</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>io.cubita</groupId>
+            <artifactId>cubita-commons</artifactId>
+        </dependency>
+    </dependencies>
+
 </project>
