@@ -36,6 +36,10 @@ public abstract class AbstractServiceMockProvider implements ServiceMockProvider
 
     private Map<String, TestResult> internalResultMap;
 
+    private int total;
+
+    private int success;
+
     @Override
     public void initContext(ApplicationContext context) {
         this.applicationContext = context;
@@ -67,6 +71,32 @@ public abstract class AbstractServiceMockProvider implements ServiceMockProvider
 
     public Map<String, TestResult> getInternalResultMap() {
         return internalResultMap;
+    }
+
+    public void addTotal() {
+        this.total++;
+    }
+
+    public void addSuccess() {
+        this.total++;
+    }
+
+    @Override
+    public int getTotal() {
+        return total;
+    }
+
+    public void setTotal(int total) {
+        this.total = total;
+    }
+
+    @Override
+    public int getSuccess() {
+        return success;
+    }
+
+    public void setSuccess(int success) {
+        this.success = success;
     }
 
     public abstract void execIntenal();

@@ -35,8 +35,17 @@ public interface ServiceMockProvider {
 
     Map<String, Map<String, TestResult>> exec(int level);
 
+    int getTotal();
+
+    int getSuccess();
+
+    default String getDetail() {
+        return "";
+    };
+
     default String name() {
         return this.getClass().getName();
     }
+
 
 }

@@ -25,6 +25,7 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Service;
 
 import io.cubita.commons.loader.EnhancedServiceLoader;
+import io.cubita.commons.tests.TestMetric;
 import io.cubita.commons.tests.TestResult;
 
 /**
@@ -39,18 +40,19 @@ public class MockService implements ApplicationContextAware {
 
     private ApplicationContext applicationContext;
 
-    public List<Map<String, Map<String, TestResult>>> exec(int level) {
+    public List<TestMetric> exec(int level) {
         final List<ServiceMockProvider> mockServices = EnhancedServiceLoader
             .loadAll(ServiceMockProvider.class);
-        final List<Map<String, Map<String, TestResult>>> results = new ArrayList<>();
+        final List<TestMetric> metrics = new ArrayList<>();
         for (ServiceMockProvider mock : mockServices) {
             mock.initContext(this.applicationContext);
             final Map<String, Map<String, TestResult>> result = mock.exec(level);
             if (result != null && result.size() > 0) {
-                results.add(result);
+                metrics.add(new TestMetric(mock.getTotal(), mock.getSuccess(),
+                        mock.getDetail(), result));
             }
         }
-        return results;
+        return metrics;
     }
 
     @Override

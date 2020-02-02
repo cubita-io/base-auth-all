@@ -42,6 +42,7 @@ import static io.cubita.commons.Constants.TEST_MOCK_EXPECT;
 public class UserServiceMock extends AbstractServiceMockProvider {
 
     public void loginSuccess(JSONObject obj) {
+        addTotal();
         final JSONArray args = obj.getJSONArray(TEST_MOCK_ARGS);
         final UserDto args0 = args.getObject(0, UserDto.class);
         final String expect = obj.getString(TEST_MOCK_EXPECT);
@@ -52,6 +53,7 @@ public class UserServiceMock extends AbstractServiceMockProvider {
             final UserService userService = getApplicationContext().getBean(UserService.class);
             result.setAuthor(userService.author());
             userService.login(args0);
+            addSuccess();
             result.setFinishStatus(FinishStatus.SUCCESS.ordinal());
         } catch (BeansException ex) {
             result.setFinishStatus(FinishStatus.NOT_STARTED.ordinal());
@@ -66,7 +68,7 @@ public class UserServiceMock extends AbstractServiceMockProvider {
     }
 
     public void loginFail(JSONObject obj) {
-
+        addTotal();
         final JSONArray args = obj.getJSONArray(TEST_MOCK_ARGS);
         final UserDto args0 = args.getObject(0, UserDto.class);
         final String expect = obj.getString(TEST_MOCK_EXPECT);
@@ -76,6 +78,7 @@ public class UserServiceMock extends AbstractServiceMockProvider {
         try {
             final UserService userService = getApplicationContext().getBean(UserService.class);
             userService.login(args0);
+            addSuccess();
             result.setFinishStatus(FinishStatus.SUCCESS.ordinal());
         } catch (BeansException ex) {
             result.setFinishStatus(FinishStatus.NOT_STARTED.ordinal());
@@ -88,6 +91,11 @@ public class UserServiceMock extends AbstractServiceMockProvider {
         }
         final String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
         getInternalResultMap().put(methodName, result);
+    }
+
+    @Override
+    public String getDetail() {
+        return "用户";
     }
 
     @Override
