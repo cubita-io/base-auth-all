@@ -45,6 +45,18 @@
                 <artifactId>auth-service</artifactId>
                 <version>${base.auth.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>io.cubita.base</groupId>
+                <artifactId>auth-service-impl</artifactId>
+                <version>${base.auth.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.cubita.base</groupId>
+                <artifactId>auth-mock</artifactId>
+                <version>${base.auth.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

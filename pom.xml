@@ -14,6 +14,8 @@
         <module>auth-boot</module>
         <module>auth-commons</module>
         <module>auth-service</module>
+        <module>auth-service-impl</module>
+        <module>auth-mock</module>
     </modules>
 
 
