@@ -21,6 +21,7 @@ import org.springframework.beans.BeansException;
 
 import io.cubita.base.auth.service.UserService;
 import io.cubita.base.auth.service.dto.UserDto;
+import io.cubita.commons.exceptions.CheckFailException;
 import io.cubita.commons.exceptions.NotImplementMethodException;
 import io.cubita.commons.tests.FinishStatus;
 import io.cubita.commons.tests.TestResult;
@@ -36,17 +37,18 @@ public class UserServiceMock extends AbstractServiceMockProvider {
 
     public void loginSuccess() {
         final LocalDate startDate = LocalDate.of(2020, 02, 1);
-        final TestResult result = new TestResult(startDate, startDate.plusDays(1), "测试登录成功");
+        final TestResult result = new TestResult("测试登录成功", startDate, startDate.plusDays(1));
         try {
             final UserService userService = getApplicationContext().getBean(UserService.class);
             userService.login(mockLoginSuccess());
+            expectLoginSuccess();
             result.setFinishStatus(FinishStatus.SUCCESS.ordinal());
         } catch (BeansException ex) {
             result.setFinishStatus(FinishStatus.NOT_STARTED.ordinal());
         } catch (NotImplementMethodException ex) {
-            ex.getMessage();
             result.setFinishStatus(FinishStatus.NOT_FINISH.ordinal());
         } catch (Exception ex) {
+            result.setDetail(ex.getMessage());
             result.setFinishStatus(FinishStatus.FAIL.ordinal());
         }
         final String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
@@ -55,10 +57,11 @@ public class UserServiceMock extends AbstractServiceMockProvider {
 
     public void loginFail() {
         final LocalDate startDate = LocalDate.of(2020, 02, 1);
-        final TestResult result = new TestResult(startDate, startDate.plusDays(1), "测试登录失败");
+        final TestResult result = new TestResult("测试登录失败", startDate, startDate.plusDays(1));
         try {
             final UserService userService = getApplicationContext().getBean(UserService.class);
-            userService.login(mockLoginSuccess());
+            userService.login(mockLoginFail());
+            expectLoginFail();
             result.setFinishStatus(FinishStatus.SUCCESS.ordinal());
         } catch (BeansException ex) {
             result.setFinishStatus(FinishStatus.NOT_STARTED.ordinal());
@@ -66,6 +69,7 @@ public class UserServiceMock extends AbstractServiceMockProvider {
             ex.getMessage();
             result.setFinishStatus(FinishStatus.NOT_FINISH.ordinal());
         } catch (Exception ex) {
+            result.setDetail(ex.getMessage());
             result.setFinishStatus(FinishStatus.FAIL.ordinal());
         }
         final String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
@@ -79,8 +83,7 @@ public class UserServiceMock extends AbstractServiceMockProvider {
         return userDto;
     }
 
-    private boolean expectLoginSuccess() {
-        return true;
+    private void expectLoginSuccess() {
     }
 
     private UserDto mockLoginFail() {
@@ -88,6 +91,9 @@ public class UserServiceMock extends AbstractServiceMockProvider {
         userDto.setName("zhangsan");
         userDto.setPwd("12345678");
         return userDto;
+    }
+
+    private void expectLoginFail() {
     }
 
     @Override
