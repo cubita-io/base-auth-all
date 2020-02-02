@@ -52,7 +52,6 @@ public class UserServiceMock extends AbstractServiceMockProvider {
             final UserService userService = getApplicationContext().getBean(UserService.class);
             result.setAuthor(userService.author());
             userService.login(args0);
-            expectLoginSuccess();
             result.setFinishStatus(FinishStatus.SUCCESS.ordinal());
         } catch (BeansException ex) {
             result.setFinishStatus(FinishStatus.NOT_STARTED.ordinal());
@@ -66,13 +65,17 @@ public class UserServiceMock extends AbstractServiceMockProvider {
         getInternalResultMap().put(methodName, result);
     }
 
-    public void loginFail() {
+    public void loginFail(JSONObject obj) {
+
+        final JSONArray args = obj.getJSONArray(TEST_MOCK_ARGS);
+        final UserDto args0 = args.getObject(0, UserDto.class);
+        final String expect = obj.getString(TEST_MOCK_EXPECT);
+
         final LocalDate startDate = LocalDate.of(2020, 02, 1);
         final TestResult result = new TestResult("测试登录失败", startDate, startDate.plusDays(1));
         try {
             final UserService userService = getApplicationContext().getBean(UserService.class);
-            userService.login(mockLoginFail());
-            expectLoginFail();
+            userService.login(args0);
             result.setFinishStatus(FinishStatus.SUCCESS.ordinal());
         } catch (BeansException ex) {
             result.setFinishStatus(FinishStatus.NOT_STARTED.ordinal());
@@ -87,26 +90,6 @@ public class UserServiceMock extends AbstractServiceMockProvider {
         getInternalResultMap().put(methodName, result);
     }
 
-    private UserDto mockLoginSuccess() {
-        final UserDto userDto = new UserDto();
-        userDto.setName("zhangsan");
-        userDto.setPwd("123456");
-        return userDto;
-    }
-
-    private void expectLoginSuccess() {
-    }
-
-    private UserDto mockLoginFail() {
-        final UserDto userDto = new UserDto();
-        userDto.setName("zhangsan");
-        userDto.setPwd("12345678");
-        return userDto;
-    }
-
-    private void expectLoginFail() {
-    }
-
     @Override
     public void execIntenal() {
 
@@ -115,7 +98,7 @@ public class UserServiceMock extends AbstractServiceMockProvider {
 
         final JSONObject obj = JSONObject.parseObject(data);
         loginSuccess(obj.getJSONObject("loginSuccess"));
-        loginFail();
+        loginFail(obj.getJSONObject("loginFail"));
     }
 
 }
