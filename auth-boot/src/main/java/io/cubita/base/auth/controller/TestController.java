@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONArray;
-import io.cubita.base.auth.tests.v1x0x0.MockService;
+import io.cubita.base.auth.tests.v1x0x0.TestService;
 
 /**
  * <p>
@@ -34,16 +34,16 @@ import io.cubita.base.auth.tests.v1x0x0.MockService;
 public class TestController {
 
     @Autowired
-    private MockService mockService;
+    private TestService testService;
 
     @GetMapping("/test")
     public String tests() {
-        return JSONArray.toJSONString(mockService.exec(0));
+        return JSONArray.toJSONString(testService.exec(0));
     }
 
     @GetMapping("/test/{level}")
     public String tests(@PathVariable int level) {
-        return JSONArray.toJSONString(mockService.exec(level));
+        return JSONArray.toJSONString(testService.exec(level));
     }
 
 }

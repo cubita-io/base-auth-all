@@ -36,15 +36,15 @@ import io.cubita.commons.tests.TestResult;
  * @since 1.0.0
  */
 @Service
-public class MockService implements ApplicationContextAware {
+public class TestService implements ApplicationContextAware {
 
     private ApplicationContext applicationContext;
 
     public List<TestMetric> exec(int level) {
-        final List<ServiceMockProvider> mockServices = EnhancedServiceLoader
-            .loadAll(ServiceMockProvider.class);
+        final List<ServiceTestProvider> testServices = EnhancedServiceLoader
+            .loadAll(ServiceTestProvider.class);
         final List<TestMetric> metrics = new ArrayList<>();
-        for (ServiceMockProvider mock : mockServices) {
+        for (ServiceTestProvider mock : testServices) {
             mock.initContext(this.applicationContext);
             final Map<String, Map<String, TestResult>> result = mock.exec(level);
             if (result != null && result.size() > 0) {

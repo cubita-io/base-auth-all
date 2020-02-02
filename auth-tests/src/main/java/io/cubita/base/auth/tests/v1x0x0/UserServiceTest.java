@@ -28,9 +28,9 @@ import io.cubita.commons.tests.FinishStatus;
 import io.cubita.commons.tests.TestResult;
 import io.cubita.commons.utils.ResourceUtil;
 
-import static io.cubita.commons.Constants.TEST_MOCK_ARGS;
-import static io.cubita.commons.Constants.TEST_MOCK_DIRECTORY;
-import static io.cubita.commons.Constants.TEST_MOCK_EXPECT;
+import static io.cubita.commons.Constants.TESTS_ARGS;
+import static io.cubita.commons.Constants.TESTS_DIRECTORY;
+import static io.cubita.commons.Constants.TESTS_EXPECT;
 
 /**
  * <p>
@@ -39,13 +39,13 @@ import static io.cubita.commons.Constants.TEST_MOCK_EXPECT;
  * @author jiawei
  * @since 1.0.0
  */
-public class UserServiceMock extends AbstractServiceMockProvider {
+public class UserServiceTest extends AbstractServiceTestProvider {
 
     public void loginSuccess(JSONObject obj) {
         addTotal();
-        final JSONArray args = obj.getJSONArray(TEST_MOCK_ARGS);
+        final JSONArray args = obj.getJSONArray(TESTS_ARGS);
         final UserDto args0 = args.getObject(0, UserDto.class);
-        final String expect = obj.getString(TEST_MOCK_EXPECT);
+        final String expect = obj.getString(TESTS_EXPECT);
 
         final LocalDate startDate = LocalDate.of(2020, 02, 1);
         final TestResult result = new TestResult("测试登录成功", startDate, startDate.plusDays(1));
@@ -69,9 +69,9 @@ public class UserServiceMock extends AbstractServiceMockProvider {
 
     public void loginFail(JSONObject obj) {
         addTotal();
-        final JSONArray args = obj.getJSONArray(TEST_MOCK_ARGS);
+        final JSONArray args = obj.getJSONArray(TESTS_ARGS);
         final UserDto args0 = args.getObject(0, UserDto.class);
-        final String expect = obj.getString(TEST_MOCK_EXPECT);
+        final String expect = obj.getString(TESTS_EXPECT);
 
         final LocalDate startDate = LocalDate.of(2020, 02, 1);
         final TestResult result = new TestResult("测试登录失败", startDate, startDate.plusDays(1));
@@ -101,8 +101,8 @@ public class UserServiceMock extends AbstractServiceMockProvider {
     @Override
     public void execIntenal() {
 
-        final String data = ResourceUtil.getContentQuietly(TEST_MOCK_DIRECTORY
-                                                           + UserServiceMock.class.getName());
+        final String data = ResourceUtil.getContentQuietly(TESTS_DIRECTORY
+                                                           + UserServiceTest.class.getName());
 
         final JSONObject obj = JSONObject.parseObject(data);
         loginSuccess(obj.getJSONObject("loginSuccess"));

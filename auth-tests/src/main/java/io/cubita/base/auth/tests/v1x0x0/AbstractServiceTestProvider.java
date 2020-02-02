@@ -30,7 +30,7 @@ import io.cubita.commons.tests.TestResult;
  * @author jiawei
  * @since 1.0.0
  */
-public abstract class AbstractServiceMockProvider implements ServiceMockProvider {
+public abstract class AbstractServiceTestProvider implements ServiceTestProvider {
 
     private ApplicationContext      applicationContext;
 

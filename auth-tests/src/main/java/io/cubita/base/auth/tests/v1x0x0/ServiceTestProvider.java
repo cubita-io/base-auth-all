@@ -15,17 +15,37 @@
  */
 package io.cubita.base.auth.tests.v1x0x0;
 
+import java.util.Map;
+
+import org.springframework.context.ApplicationContext;
+
+import io.cubita.commons.tests.TestResult;
+
 /**
  * <p>
+ *     milestone: 1.0.0
  * </p>
  *
  * @author jiawei
  * @since 1.0.0
  */
-public class RoleServiceMock extends AbstractServiceMockProvider {
+public interface ServiceTestProvider {
 
-    @Override
-    public void execIntenal() {
+    void initContext(ApplicationContext context);
 
+    Map<String, Map<String, TestResult>> exec(int level);
+
+    int getTotal();
+
+    int getSuccess();
+
+    default String getDetail() {
+        return "";
+    };
+
+    default String name() {
+        return this.getClass().getName();
     }
+
+
 }
