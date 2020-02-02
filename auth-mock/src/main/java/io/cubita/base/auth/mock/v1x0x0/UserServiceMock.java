@@ -19,12 +19,18 @@ import java.time.LocalDate;
 
 import org.springframework.beans.BeansException;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import io.cubita.base.auth.service.UserService;
 import io.cubita.base.auth.service.dto.UserDto;
-import io.cubita.commons.exceptions.CheckFailException;
 import io.cubita.commons.exceptions.NotImplementMethodException;
 import io.cubita.commons.tests.FinishStatus;
 import io.cubita.commons.tests.TestResult;
+import io.cubita.commons.utils.ResourceUtil;
+
+import static io.cubita.commons.Constants.TEST_MOCK_ARGS;
+import static io.cubita.commons.Constants.TEST_MOCK_DIRECTORY;
+import static io.cubita.commons.Constants.TEST_MOCK_EXPECT;
 
 /**
  * <p>
@@ -35,12 +41,17 @@ import io.cubita.commons.tests.TestResult;
  */
 public class UserServiceMock extends AbstractServiceMockProvider {
 
-    public void loginSuccess() {
+    public void loginSuccess(JSONObject obj) {
+        final JSONArray args = obj.getJSONArray(TEST_MOCK_ARGS);
+        final UserDto args0 = args.getObject(0, UserDto.class);
+        final String expect = obj.getString(TEST_MOCK_EXPECT);
+
         final LocalDate startDate = LocalDate.of(2020, 02, 1);
         final TestResult result = new TestResult("测试登录成功", startDate, startDate.plusDays(1));
         try {
             final UserService userService = getApplicationContext().getBean(UserService.class);
-            userService.login(mockLoginSuccess());
+            result.setAuthor(userService.author());
+            userService.login(args0);
             expectLoginSuccess();
             result.setFinishStatus(FinishStatus.SUCCESS.ordinal());
         } catch (BeansException ex) {
@@ -98,7 +109,12 @@ public class UserServiceMock extends AbstractServiceMockProvider {
 
     @Override
     public void execIntenal() {
-        loginSuccess();
+
+        final String data = ResourceUtil.getContentQuietly(TEST_MOCK_DIRECTORY
+                                                           + UserServiceMock.class.getName());
+
+        final JSONObject obj = JSONObject.parseObject(data);
+        loginSuccess(obj.getJSONObject("loginSuccess"));
         loginFail();
     }
 

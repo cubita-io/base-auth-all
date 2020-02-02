@@ -19,6 +19,7 @@ import java.time.LocalDate;
 
 import io.cubita.base.auth.service.dto.UserDto;
 import io.cubita.commons.exceptions.NotImplementMethodException;
+import io.cubita.commons.service.AuthorService;
 
 /**
  * <p>
@@ -28,7 +29,7 @@ import io.cubita.commons.exceptions.NotImplementMethodException;
  * @author jiawei
  * @since 1.0.0
  */
-public interface UserService {
+public interface UserService extends AuthorService {
 
     /**
      * 登录.

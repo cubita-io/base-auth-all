@@ -1,0 +1,11 @@
+{
+    "loginSuccess": {
+        "args": [
+            {
+                "name": "zhangsan",
+                "pwd": "123456"
+            }
+        ],
+        "expect": "OK"
+    }
+}
