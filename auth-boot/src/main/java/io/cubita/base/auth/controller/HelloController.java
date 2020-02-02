@@ -36,7 +36,6 @@ public class HelloController {
     @Autowired
     private IUserService userService;
 
-
     @GetMapping("/{tenant}/hello")
     public String hello(@PathVariable String tenant) {
         try {
