@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONArray;
-import io.cubita.base.auth.mock.v1x0x0.MockService;
+import io.cubita.base.auth.tests.v1x0x0.MockService;
 
 /**
  * <p>

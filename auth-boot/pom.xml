@@ -58,7 +58,7 @@
         </dependency>
         <dependency>
             <groupId>io.cubita.base</groupId>
-            <artifactId>auth-mock</artifactId>
+            <artifactId>auth-tests</artifactId>
         </dependency>
 
         <!--<dependency>-->

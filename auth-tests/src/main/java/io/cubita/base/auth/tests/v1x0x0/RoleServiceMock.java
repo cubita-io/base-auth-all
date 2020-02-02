@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package io.cubita.base.auth.mock.v1x0x0;
+package io.cubita.base.auth.tests.v1x0x0;
 
 /**
  * <p>

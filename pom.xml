@@ -15,7 +15,7 @@
         <module>auth-commons</module>
         <module>auth-service</module>
         <module>auth-service-impl</module>
-        <module>auth-mock</module>
+        <module>auth-tests</module>
     </modules>
 
 
