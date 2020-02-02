@@ -7,5 +7,14 @@
             }
         ],
         "expect": "OK"
+    },
+    "loginFail": {
+        "args": [
+            {
+                "name": "zhangsan",
+                "pwd": "12345678"
+            }
+        ],
+        "expect": "OK"
     }
 }
