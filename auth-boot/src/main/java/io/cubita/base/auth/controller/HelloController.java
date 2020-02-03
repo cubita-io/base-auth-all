@@ -19,8 +19,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
-import io.cubita.autoconfigure.zuulex.context.RequestContext;
 import io.cubita.base.auth.dao.service.IUserService;
 
 /**
@@ -38,13 +38,14 @@ public class HelloController {
 
     @GetMapping("/{tenant}/hello")
     public String hello(@PathVariable String tenant) {
-        try {
-            //            int o = 1/0;
-            return userService.getById(1).getName();
-        } finally {
-            RequestContext.getCurrentContext().unset();
-        }
+        int o = 1/0;
+        return userService.getById(1).getName();
+    }
 
+    @GetMapping("/zuulex/{tenant}/hello")
+    public String hello3() {
+        System.out.println("333333333");
+        return userService.getById(1).getName();
     }
 
     @GetMapping("/hello2")
@@ -53,4 +54,8 @@ public class HelloController {
         return userService.getById(1).getName();
     }
 
+    @GetMapping("/hello4")
+    public ModelAndView hello4() {
+        return new ModelAndView("hello");
+    }
 }

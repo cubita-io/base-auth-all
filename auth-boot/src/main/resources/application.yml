@@ -7,6 +7,11 @@ spring:
     url: jdbc:mysql://127.0.0.1:3306/auth8?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&useSSL=false&serverTimezone=Asia/Shanghai
     username: root
     password: 123456
+  freemarker:
+    cache: false
+    content-type: text/html
+    suffix: .ftlh
+    template-loader-path: classpath:/templates/
 logging:
   level:
     root: info
