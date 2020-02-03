@@ -36,12 +36,12 @@ public class TestController {
     @Autowired
     private TestService testService;
 
-    @GetMapping("/test")
+    @GetMapping("/v1x0x0/test")
     public String tests() {
         return JSONArray.toJSONString(testService.exec(0));
     }
 
-    @GetMapping("/test/{level}")
+    @GetMapping("/v1x0x0/test/{level}")
     public String tests(@PathVariable int level) {
         return JSONArray.toJSONString(testService.exec(level));
     }
