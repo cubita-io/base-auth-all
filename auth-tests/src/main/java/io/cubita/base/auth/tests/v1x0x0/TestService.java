@@ -49,10 +49,9 @@ public class TestService implements ApplicationContextAware {
         for (ServiceTestProvider mock : testServices) {
             mock.initContext(this.applicationContext);
             mock.exec(level);
-            Map<String, TestResult> resultMap = mock.getResultMap();
-            if (resultMap != null && resultMap.size() > 0) {
+            if (mock.getResultMap() != null && mock.getResultMap().size() > 0) {
                 final Map<String, Map<String, TestResult>> result = new HashMap<>();
-                result.put(mock.name(), resultMap);
+                result.put(mock.name(), mock.getResultMap());
                 metrics.add(new TestMetric(mock.getTotal(), mock.getSuccess(),
                         mock.getDetail(), result));
             }
