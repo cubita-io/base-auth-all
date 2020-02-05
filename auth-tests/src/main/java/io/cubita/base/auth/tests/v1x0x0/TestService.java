@@ -16,6 +16,7 @@
 package io.cubita.base.auth.tests.v1x0x0;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -47,8 +48,11 @@ public class TestService implements ApplicationContextAware {
         final List<TestMetric> metrics = new ArrayList<>();
         for (ServiceTestProvider mock : testServices) {
             mock.initContext(this.applicationContext);
-            final Map<String, Map<String, TestResult>> result = mock.exec(level);
-            if (result != null && result.size() > 0) {
+            mock.exec(level);
+            Map<String, TestResult> resultMap = mock.getResultMap();
+            if (resultMap != null && resultMap.size() > 0) {
+                final Map<String, Map<String, TestResult>> result = new HashMap<>();
+                result.put(mock.name(), resultMap);
                 metrics.add(new TestMetric(mock.getTotal(), mock.getSuccess(),
                         mock.getDetail(), result));
             }

@@ -35,11 +35,13 @@ public interface ServiceTestProvider {
 
     void initContext(ApplicationContext context);
 
-    Map<String, Map<String, TestResult>> exec(int level);
+    void exec(int level);
 
     int getTotal();
 
     int getSuccess();
+
+    Map<String, TestResult> getResultMap();
 
     default String getDetail() {
         return "";

@@ -47,29 +47,24 @@ public abstract class AbstractServiceTestProvider implements ServiceTestProvider
     }
 
     @Override
-    public Map<String, Map<String, TestResult>> exec(int level) {
+    public void exec(int level) {
         final Order annotation = this.getClass().getAnnotation(Order.class);
         int annotationLevel = 0;
         if (annotation != null) {
             annotationLevel = annotation.value();
         }
         if (level < annotationLevel) {
-            return null;
+            return;
         }
         execIntenal();
-        if (internalResultMap.size() == 0) {
-            return null;
-        }
-        final Map<String, Map<String, TestResult>> results = new HashMap<>();
-        results.put(name(), internalResultMap);
-        return results;
     }
 
     public ApplicationContext getApplicationContext() {
         return applicationContext;
     }
 
-    public Map<String, TestResult> getInternalResultMap() {
+    @Override
+    public Map<String, TestResult> getResultMap() {
         return internalResultMap;
     }
 

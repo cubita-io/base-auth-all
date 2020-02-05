@@ -18,7 +18,6 @@ package io.cubita.base.auth.tests.v1x0x0;
 import java.time.LocalDate;
 
 import org.springframework.beans.BeansException;
-import org.springframework.core.annotation.Order;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -65,7 +64,7 @@ public class UserServiceTest extends AbstractServiceTestProvider {
             result.setFinishStatus(FinishStatus.FAIL.ordinal());
         }
         final String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
-        getInternalResultMap().put(methodName, result);
+        getResultMap().put(methodName, result);
     }
 
     public void loginFail(JSONObject obj) {
@@ -91,7 +90,7 @@ public class UserServiceTest extends AbstractServiceTestProvider {
             result.setFinishStatus(FinishStatus.FAIL.ordinal());
         }
         final String methodName = Thread.currentThread().getStackTrace()[1].getMethodName();
-        getInternalResultMap().put(methodName, result);
+        getResultMap().put(methodName, result);
     }
 
     @Override
