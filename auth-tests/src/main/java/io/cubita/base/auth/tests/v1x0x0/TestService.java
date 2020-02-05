@@ -42,9 +42,6 @@ public class TestService implements ApplicationContextAware {
     private ApplicationContext applicationContext;
 
     public List<TestMetric> exec(int level) {
-//        final List<ServiceTestProvider> testServices = EnhancedServiceLoader
-//            .loadAll(ServiceTestProvider.class);
-
         final Set<ServiceTestProvider> testServices = ExtensionLoader.getExtensionLoader(ServiceTestProvider.class).getSupportedExtensionInstances();
 
         final List<TestMetric> metrics = new ArrayList<>();

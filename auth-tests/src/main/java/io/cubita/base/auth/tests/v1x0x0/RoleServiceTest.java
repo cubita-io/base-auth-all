@@ -15,6 +15,8 @@
  */
 package io.cubita.base.auth.tests.v1x0x0;
 
+import org.springframework.core.annotation.Order;
+
 /**
  * <p>
  * </p>
