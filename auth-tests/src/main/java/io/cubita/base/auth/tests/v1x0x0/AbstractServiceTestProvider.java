@@ -19,8 +19,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.context.ApplicationContext;
+import org.springframework.core.annotation.Order;
 
-import io.cubita.commons.loader.LoadLevel;
 import io.cubita.commons.tests.TestResult;
 
 /**
@@ -48,10 +48,10 @@ public abstract class AbstractServiceTestProvider implements ServiceTestProvider
 
     @Override
     public Map<String, Map<String, TestResult>> exec(int level) {
-        final LoadLevel annotation = this.getClass().getAnnotation(LoadLevel.class);
+        final Order annotation = this.getClass().getAnnotation(Order.class);
         int annotationLevel = 0;
         if (annotation != null) {
-            annotationLevel = annotation.order();
+            annotationLevel = annotation.value();
         }
         if (level < annotationLevel) {
             return null;

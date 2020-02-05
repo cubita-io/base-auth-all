@@ -19,6 +19,7 @@ import java.util.Map;
 
 import org.springframework.context.ApplicationContext;
 
+import io.cubita.commons.extension.SPI;
 import io.cubita.commons.tests.TestResult;
 
 /**
@@ -29,6 +30,7 @@ import io.cubita.commons.tests.TestResult;
  * @author jiawei
  * @since 1.0.0
  */
+@SPI
 public interface ServiceTestProvider {
 
     void initContext(ApplicationContext context);
@@ -46,6 +48,5 @@ public interface ServiceTestProvider {
     default String name() {
         return this.getClass().getName();
     }
-
 
 }

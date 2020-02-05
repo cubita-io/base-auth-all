@@ -36,3 +36,5 @@ zuulex:
       url: 'forward:'
   tenant:
     admin: admin
+error:
+  path: /error2

@@ -18,13 +18,14 @@ package io.cubita.base.auth.tests.v1x0x0;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Service;
 
-import io.cubita.commons.loader.EnhancedServiceLoader;
+import io.cubita.commons.extension.ExtensionLoader;
 import io.cubita.commons.tests.TestMetric;
 import io.cubita.commons.tests.TestResult;
 
@@ -41,8 +42,11 @@ public class TestService implements ApplicationContextAware {
     private ApplicationContext applicationContext;
 
     public List<TestMetric> exec(int level) {
-        final List<ServiceTestProvider> testServices = EnhancedServiceLoader
-            .loadAll(ServiceTestProvider.class);
+//        final List<ServiceTestProvider> testServices = EnhancedServiceLoader
+//            .loadAll(ServiceTestProvider.class);
+
+        final Set<ServiceTestProvider> testServices = ExtensionLoader.getExtensionLoader(ServiceTestProvider.class).getSupportedExtensionInstances();
+
         final List<TestMetric> metrics = new ArrayList<>();
         for (ServiceTestProvider mock : testServices) {
             mock.initContext(this.applicationContext);

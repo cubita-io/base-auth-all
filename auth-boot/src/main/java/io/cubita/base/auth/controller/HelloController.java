@@ -15,7 +15,11 @@
  */
 package io.cubita.base.auth.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -58,4 +62,11 @@ public class HelloController {
     public ModelAndView hello4() {
         return new ModelAndView("hello");
     }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<String> mediaTypeNotAcceptable(HttpServletRequest request) {
+//        HttpStatus status = getStatus(request);
+        return ResponseEntity.status(503).build();
+    }
+
 }
