@@ -21,7 +21,7 @@ import java.util.Map;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.annotation.Order;
 
-import io.cubita.commons.extension.DisableInject;
+import io.cubita.commons.spring.extension.SpringExtensionFactory;
 import io.cubita.commons.tests.TestResult;
 
 /**
@@ -31,7 +31,6 @@ import io.cubita.commons.tests.TestResult;
  * @author jiawei
  * @since 1.0.0
  */
-@DisableInject
 public abstract class AbstractServiceTestProvider implements ServiceTestProvider {
 
     private ApplicationContext      applicationContext;
@@ -45,6 +44,7 @@ public abstract class AbstractServiceTestProvider implements ServiceTestProvider
     @Override
     public void initContext(ApplicationContext context) {
         this.applicationContext = context;
+        SpringExtensionFactory.addApplicationContext(context);
         this.internalResultMap = new HashMap<>();
     }
 

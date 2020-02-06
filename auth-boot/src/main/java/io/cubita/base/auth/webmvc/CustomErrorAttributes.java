@@ -18,7 +18,6 @@ public class CustomErrorAttributes extends DefaultErrorAttributes {
 
     @Override
     public Map<String, Object> getErrorAttributes(WebRequest webRequest, boolean includeStackTrace) {
-        System.out.println("aaaaa");
         return super.getErrorAttributes(webRequest, includeStackTrace);
     }
 }
