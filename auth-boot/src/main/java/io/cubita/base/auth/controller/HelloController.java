@@ -15,11 +15,7 @@
  */
 package io.cubita.base.auth.controller;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -46,12 +42,6 @@ public class HelloController {
         return userService.getById(1).getName();
     }
 
-    @GetMapping("/zuulex/{tenant}/hello")
-    public String hello3() {
-        System.out.println("333333333");
-        return userService.getById(1).getName();
-    }
-
     @GetMapping("/hello2")
     public String hello2() {
         System.out.println("2222222");
@@ -61,12 +51,6 @@ public class HelloController {
     @GetMapping("/hello4")
     public ModelAndView hello4() {
         return new ModelAndView("hello");
-    }
-
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<String> mediaTypeNotAcceptable(HttpServletRequest request) {
-//        HttpStatus status = getStatus(request);
-        return ResponseEntity.status(503).build();
     }
 
 }

@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.util.StringUtils;
@@ -53,8 +54,12 @@ import static io.cubita.base.auth.commons.Constants.TENANT_COLUMN_NAME;
 @MapperScan({ "io.cubita.base.auth.dao.mapper", "io.cubita.base.auth.mydao.mapper" })
 public class GlobalConfiguration {
 
+    @Autowired(required = false)
+    private ZuulexProperties zuulexProperties;
+
+
     @Bean
-    public TenantFilter tenantFilter(ZuulexProperties zuulexProperties) {
+    public TenantFilter tenantFilter() {
         return new TenantFilter(zuulexProperties);
     }
 
@@ -64,7 +69,7 @@ public class GlobalConfiguration {
     }
 
     @Bean
-    public PaginationInterceptor paginationInterceptor(ZuulexProperties zuulexProperties) {
+    public PaginationInterceptor paginationInterceptor() {
         PaginationInterceptor paginationInterceptor = new PaginationInterceptor();
         // 设置请求的页面大于最大页后操作， true调回到首页，false 继续请求  默认false
         // paginationInterceptor.setOverflow(false);
@@ -78,7 +83,7 @@ public class GlobalConfiguration {
          * 这里固定写成住户 1 实际情况你可以从cookie读取，因此数据看不到 【 麻花藤 】 这条记录（ 注意观察 SQL ）<br>
          */
         List<ISqlParser> sqlParserList = new ArrayList<>();
-        sqlParserList.add(buildTenantSqlParser(zuulexProperties));
+        sqlParserList.add(buildTenantSqlParser());
         paginationInterceptor.setSqlParserList(sqlParserList);
         paginationInterceptor.setSqlParserFilter(metaObject -> {
             MappedStatement ms = SqlParserHelper.getMappedStatement(metaObject);
@@ -92,13 +97,13 @@ public class GlobalConfiguration {
         return paginationInterceptor;
     }
 
-    private TenantSqlParser buildTenantSqlParser(ZuulexProperties zuulexProperties) {
+    private TenantSqlParser buildTenantSqlParser() {
         TenantSqlParser tenantSqlParser = new TenantSqlParser();
-        tenantSqlParser.setTenantHandler(buildTenantHandler(zuulexProperties));
+        tenantSqlParser.setTenantHandler(buildTenantHandler());
         return tenantSqlParser;
     }
 
-    private TenantHandler buildTenantHandler(ZuulexProperties zuulexProperties) {
+    private TenantHandler buildTenantHandler() {
         return new TenantHandler() {
             @Override
             public Expression getTenantId(boolean where) {
@@ -118,6 +123,13 @@ public class GlobalConfiguration {
 
             @Override
             public boolean doTableFilter(String tableName) {
+                // 这里可以判断是否过滤表
+                if (Arrays.asList(TABLE_WITHOUT_TENANT).contains(tableName)) {
+                    return true;
+                }
+                if (GlobalConfiguration.this.zuulexProperties == null) {
+                    return false;
+                }
                 String tenantName = RequestContext.getCurrentContext().getTenant();
                 String admin = zuulexProperties.getTenant().getAdmin();
                 if (admin.equals(tenantName)) {
@@ -127,10 +139,6 @@ public class GlobalConfiguration {
                     admin += "/";
                 }
                 if (tenantName != null && tenantName.startsWith(admin)) {
-                    return true;
-                }
-                // 这里可以判断是否过滤表
-                if (Arrays.asList(TABLE_WITHOUT_TENANT).contains(tableName)) {
                     return true;
                 }
                 return false;

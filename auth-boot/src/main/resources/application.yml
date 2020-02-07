@@ -38,3 +38,8 @@ zuulex:
     admin: admin
 error:
   path: /error2
+#cubita:
+#  web:
+#    service:
+#      error:
+#        enabled: false

@@ -26,7 +26,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Service;
 
-import io.cubita.commons.extension.ExtensionFactory;
 import io.cubita.commons.extension.ExtensionLoader;
 import io.cubita.commons.tests.TestMetric;
 import io.cubita.commons.tests.TestResult;
@@ -63,5 +62,6 @@ public class TestService implements ApplicationContextAware {
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;
+
     }
 }
