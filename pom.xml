@@ -16,6 +16,7 @@
         <module>auth-service</module>
         <module>auth-service-impl</module>
         <module>auth-tests</module>
+        <module>auth-server</module>
     </modules>
 
 

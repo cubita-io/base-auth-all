@@ -1,5 +1,7 @@
 server:
   port: 8087
+#  error:
+#    path: /aaa
 #  servlet:
 #    context-path: /bb
 spring:
@@ -19,25 +21,23 @@ logging:
     io.cubita.base.auth.mydao: trace
   pattern:
     console: '%p %m %n'
-management:
-  endpoint:
-    health:
-      show-details: always
-  endpoints:
-    web:
-      exposure:
-        include:
-          - 'routes'
-          - 'filters'
+#management:
+#  endpoint:
+#    health:
+#      show-details: always
+#  endpoints:
+#    web:
+#      exposure:
+#        include:
+#          - 'filters'
 zuulex:
-  routes:
-    default:
-      path: /**
-      url: 'forward:'
+#  use-filter: true
+#  routes:
+#    default:
+#      path: /**
+#      url: 'forward:'
   tenant:
     admin: admin
-error:
-  path: /error2
 #cubita:
 #  web:
 #    service:

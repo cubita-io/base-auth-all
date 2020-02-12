@@ -43,7 +43,8 @@ public class TestService implements ApplicationContextAware {
     private ApplicationContext applicationContext;
 
     public List<TestMetric> exec(int level) {
-        final Set<ServiceTestProvider> testServices = ExtensionLoader.getExtensionLoader(ServiceTestProvider.class).getSupportedExtensionInstances();
+        final Set<ServiceTestProvider> testServices = ExtensionLoader.getExtensionLoader(
+            ServiceTestProvider.class).getSupportedExtensionInstances();
 
         final List<TestMetric> metrics = new ArrayList<>();
         for (ServiceTestProvider mock : testServices) {
@@ -52,8 +53,8 @@ public class TestService implements ApplicationContextAware {
             if (mock.getResultMap() != null && mock.getResultMap().size() > 0) {
                 final Map<String, Map<String, TestResult>> result = new HashMap<>();
                 result.put(mock.name(), mock.getResultMap());
-                metrics.add(new TestMetric(mock.getTotal(), mock.getSuccess(),
-                        mock.getDetail(), result));
+                metrics.add(new TestMetric(mock.getTotal(), mock.getSuccess(), mock.getDetail(),
+                    result));
             }
         }
         return metrics;

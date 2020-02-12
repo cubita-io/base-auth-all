@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.util.StringUtils;
@@ -33,7 +33,6 @@ import com.baomidou.mybatisplus.extension.plugins.tenant.TenantSqlParser;
 import io.cubita.autoconfigure.zuulex.context.RequestContext;
 import io.cubita.autoconfigure.zuulex.filters.ZuulexProperties;
 import io.cubita.autoconfigure.zuulex.filters.pre.TenantFilter;
-import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
 import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.expression.StringValue;
 import org.apache.ibatis.mapping.MappedStatement;
@@ -50,23 +49,25 @@ import static io.cubita.base.auth.commons.Constants.TENANT_COLUMN_NAME;
  * @author jiawei
  * @since 1.0.0
  */
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @MapperScan({ "io.cubita.base.auth.dao.mapper", "io.cubita.base.auth.mydao.mapper" })
 public class GlobalConfiguration {
 
-    @Autowired(required = false)
-    private ZuulexProperties zuulexProperties;
+    private ObjectProvider<ZuulexProperties> zuulexProperties;
 
+    public GlobalConfiguration(ObjectProvider<ZuulexProperties> zuulexProperties) {
+        this.zuulexProperties = zuulexProperties;
+    }
 
     @Bean
     public TenantFilter tenantFilter() {
-        return new TenantFilter(zuulexProperties);
+        return new TenantFilter(zuulexProperties.getIfUnique());
     }
 
-    @Bean
-    public SimpleMeterRegistry meterRegistry() {
-        return new SimpleMeterRegistry();
-    }
+//    @Bean
+//    public SimpleMeterRegistry meterRegistry() {
+//        return new SimpleMeterRegistry();
+//    }
 
     @Bean
     public PaginationInterceptor paginationInterceptor() {
@@ -127,11 +128,12 @@ public class GlobalConfiguration {
                 if (Arrays.asList(TABLE_WITHOUT_TENANT).contains(tableName)) {
                     return true;
                 }
-                if (GlobalConfiguration.this.zuulexProperties == null) {
+                final ZuulexProperties ifZuulexProperties = zuulexProperties.getIfAvailable();
+                if (ifZuulexProperties == null) {
                     return false;
                 }
                 String tenantName = RequestContext.getCurrentContext().getTenant();
-                String admin = zuulexProperties.getTenant().getAdmin();
+                String admin = ifZuulexProperties.getTenant().getAdmin();
                 if (admin.equals(tenantName)) {
                     return true;
                 }

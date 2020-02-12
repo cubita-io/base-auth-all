@@ -37,9 +37,9 @@ public abstract class AbstractServiceTestProvider implements ServiceTestProvider
 
     private Map<String, TestResult> internalResultMap;
 
-    private int total;
+    private int                     total;
 
-    private int success;
+    private int                     success;
 
     @Override
     public void initContext(ApplicationContext context) {

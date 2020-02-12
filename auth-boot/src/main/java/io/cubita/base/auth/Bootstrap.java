@@ -18,7 +18,7 @@ package io.cubita.base.auth;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import io.cubita.autoconfigure.zuulex.EnableZuulexServer;
+import io.cubita.autoconfigure.zuulex.security.EnableZuulexSecurity;
 
 /**
  * <p>
@@ -28,7 +28,7 @@ import io.cubita.autoconfigure.zuulex.EnableZuulexServer;
  * @since 1.0.0
  */
 @SpringBootApplication
-@EnableZuulexServer
+@EnableZuulexSecurity
 public class Bootstrap {
     public static void main(String[] args) {
         SpringApplication.run(Bootstrap.class, args);

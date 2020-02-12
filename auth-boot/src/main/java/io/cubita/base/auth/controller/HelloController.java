@@ -16,6 +16,7 @@
 package io.cubita.base.auth.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,12 +34,15 @@ import io.cubita.base.auth.dao.service.IUserService;
 @RestController
 public class HelloController {
 
+    @Value("${server.error.path:${error.path:/error}}")
+    private String       errorPath;
+
     @Autowired
     private IUserService userService;
 
     @GetMapping("/{tenant}/hello")
     public String hello(@PathVariable String tenant) {
-        int o = 1/0;
+        int o = 1 / 0;
         return userService.getById(1).getName();
     }
 
